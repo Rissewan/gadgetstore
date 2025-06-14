@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Return Policy - JJM Gadget Shop</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" type="image/png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans">
+  <!-- Header -->
+  <header class="bg-slate-800 text-white flex items-center justify-between p-4">
+    <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto" />
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="index.html" class="hover:text-blue-400">Smartphones</a>
+      <a href="tablets.html" class="hover:text-white">Tablets</a>
+      <a href="audio.html" class="hover:text-white">Audio</a>
+      <a href="wearables.html" class="hover:text-white">Wearables</a>
+      <a href="about.html" class="hover:text-white">About</a>
+    </nav>
+    <div class="relative flex items-center space-x-4">
+      <button onclick="toggleCart()" class="relative text-2xl">
+        🛒
+        <span id="cartCount" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">0</span>
+      </button>
+
+      <div class="flex items-center space-x-2">
+        <button id="loginBtn" onclick="openAuthModal('login')" class="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 text-sm">Log In</button>
+        <button id="signupBtn" onclick="openAuthModal('signup')" class="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700 text-sm">Sign Up</button>
+        <div id="userGreeting" class="hidden text-white text-sm"></div>
+        <button id="logoutBtn" onclick="logout()" class="hidden text-white bg-red-600 px-3 py-1 rounded hover:bg-red-700 text-sm">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+      <h1 class="text-3xl font-bold text-slate-800 mb-6">Return & Refund Policy</h1>
+      
+      <div class="prose max-w-none">
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold text-slate-700 mb-4">Our Return Policy</h2>
+          <p class="mb-4">At JJM Gadget Shop, we want you to be completely satisfied with your purchase. If you're not happy with your product, you may return it within 30 days of purchase for a refund or exchange.</p>
+          
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+            <p class="font-medium text-blue-700">Note: Some products have different return policies:</p>
+            <ul class="list-disc pl-5 mt-2 text-blue-700">
+              <li>Opened software and digital downloads: Non-refundable</li>
+              <li>Special orders and customized items: Non-returnable</li>
+              <li>Clearance items: Final sale, no returns</li>
+            </ul>
+          </div>
+        </section>
+        
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold text-slate-700 mb-4">Return Conditions</h2>
+          <p class="mb-4">To be eligible for a return, your item must be:</p>
+          <ul class="list-disc pl-5 mb-4 space-y-1">
+            <li>In the original packaging with all accessories</li>
+            <li>Unused and in the same condition as received</li>
+            <li>Accompanied by the original receipt or proof of purchase</li>
+            <li>Free from any damage, scratches, or signs of wear</li>
+          </ul>
+          <p>Items that don't meet these conditions may be subject to a restocking fee or may not be eligible for return.</p>
+        </section>
+        
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold text-slate-700 mb-4">How to Return an Item</h2>
+          <ol class="list-decimal pl-5 mb-4 space-y-2">
+            <li><strong>Contact our support team</strong> within 30 days of purchase at support@jjmgadgetshop.com or call +63 912 345 6789 to initiate your return.</li>
+            <li><strong>Package your item</strong> securely in the original packaging with all accessories.</li>
+            <li><strong>Include the return form</strong> (provided by our support team) inside the package.</li>
+            <li><strong>Ship the package</strong> to our return center at the address provided by our support team.</li>
+          </ol>
+          <p class="text-sm text-gray-600">Note: You will be responsible for return shipping costs unless the return is due to our error.</p>
+        </section>
+        
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold text-slate-700 mb-4">Refund Process</h2>
+          <p class="mb-4">Once we receive your returned item, our team will inspect it and notify you of the approval or rejection of your refund.</p>
+          <ul class="list-disc pl-5 mb-4 space-y-1">
+            <li>Approved refunds will be processed within 5-7 business days</li>
+            <li>Refunds will be issued to the original payment method</li>
+            <li>Shipping costs are non-refundable</li>
+            <li>Restocking fees may apply for certain items (typically 15%)</li>
+          </ul>
+          <p>If you haven't received your refund within 10 business days, please contact us.</p>
+        </section>
+        
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold text-slate-700 mb-4">Exchanges</h2>
+          <p class="mb-4">We gladly exchange items for the same product in a different color or size, or for a product of equal value.</p>
+          <p>To request an exchange:</p>
+          <ol class="list-decimal pl-5 mt-2 space-y-1">
+            <li>Follow the same return process above</li>
+            <li>Include a note specifying the item you'd like to exchange for</li>
+            <li>If the exchange item costs more, you'll need to pay the difference</li>
+            <li>If it costs less, we'll refund the difference</li>
+          </ol>
+        </section>
+        
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold text-slate-700 mb-4">Defective or Damaged Items</h2>
+          <p class="mb-4">If you receive a defective or damaged item, please contact us immediately at support@jjmgadgetshop.com or call +63 912 345 6789.</p>
+          <p>We will arrange for a replacement or refund and cover all shipping costs for defective/damaged items.</p>
+        </section>
+        
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-700 mb-4">Need Help?</h2>
+          <p class="mb-2">For any questions about our return policy, please contact us:</p>
+          <ul class="space-y-1">
+            <li>Email: <a href="mailto:support@jjmgadgetshop.com" class="text-blue-600 hover:underline">support@jjmgadgetshop.com</a></li>
+            <li>Phone: <a href="tel:+639123456789" class="text-blue-600 hover:underline">+63 912 345 6789</a></li>
+            <li>Live Chat: Available on our website during business hours (9AM-6PM, Mon-Sat)</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-800 text-gray-300 mt-10">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto" />
+        <p>Explore the latest in tech with our smartphones, tablets, and wearables.</p>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Contact</h2>
+        <ul>
+          <li>Email: support@jjmgadgetshop.com</li>
+          <li>Phone: +63 912 345 6789</li>
+          <li>Location: Balingasag, Philippines</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Quick Links</h2>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="hover:text-blue-400">Smartphones</a></li>
+          <li><a href="tablets.html" class="hover:text-blue-400">Tablets</a></li>
+          <li><a href="audio.html" class="hover:text-blue-400">Audio</a></li>
+          <li><a href="wearables.html" class="hover:text-blue-400">Wearables</a></li>
+          <li><a href="about.html" class="hover:text-blue-400">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Legal</h2>
+        <ul class="space-y-1">
+          <li><a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a></li>
+          <li><a href="terms.html" class="hover:text-blue-400">Terms of Service</a></li>
+          <li><a href="returns.html" class="hover:text-blue-400">Return Policy</a></li>
+        </ul>
+        <h2 class="text-lg font-semibold mb-3 mt-4 text-white">Follow Us</h2>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-400">Facebook</a>
+          <a href="#" class="hover:text-pink-400">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-500 py-4 border-t border-slate-700">
+      © 2025 JJM Gadgets. All rights reserved. | 
+      <a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a> | 
+      <a href="terms.html" class="hover:text-blue-400">Terms of Service</a>
+    </div>
+  </footer>
+
+  <script>
+    // Cart functionality
+    function toggleCart() {
+      const cartModal = document.getElementById("cartModal");
+      cartModal.classList.toggle('hidden');
+      cartModal.classList.toggle('flex');
+    }
+
+    // Auth functionality
+    function openAuthModal(type) {
+      const authModal = document.getElementById("authModal");
+      authModal.classList.remove('hidden');
+      authModal.classList.add('flex');
+      
+      if (type === 'login') {
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('signupForm').classList.add('hidden');
+      } else {
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('signupForm').classList.remove('hidden');
+      }
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.add('hidden');
+      document.getElementById('authModal').classList.remove('flex');
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("userEmail");
+      window.location.reload();
+    }
+
+    // Check login state on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedUsername = localStorage.getItem("username");
+      if (savedUsername) {
+        document.getElementById("loginBtn").classList.add("hidden");
+        document.getElementById("signupBtn").classList.add("hidden");
+        const greeting = document.getElementById("userGreeting");
+        greeting.textContent = `Welcome, ${savedUsername}!`;
+        greeting.classList.remove("hidden");
+        document.getElementById("logoutBtn").classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>

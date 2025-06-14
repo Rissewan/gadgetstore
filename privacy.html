@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy - JJM Gadget Shop</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" type="image/png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+  <!-- Header -->
+  <header class="bg-slate-800 text-white flex items-center justify-between p-4">
+    <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto" />
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="index.html" class="hover:text-blue-400">Smartphones</a>
+      <a href="tablets.html" class="hover:text-white">Tablets</a>
+      <a href="audio.html" class="hover:text-white">Audio</a>
+      <a href="wearables.html" class="hover:text-white">Wearables</a>
+      <a href="about.html" class="hover:text-white">About</a>
+    </nav>
+    <div class="relative flex items-center space-x-4">
+      <button onclick="toggleCart()" class="relative text-2xl">
+        🛒
+        <span id="cartCount" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">0</span>
+      </button>
+
+      <div class="flex items-center space-x-2">
+        <button id="loginBtn" onclick="openAuthModal('login')" class="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 text-sm">Log In</button>
+        <button id="signupBtn" onclick="openAuthModal('signup')" class="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700 text-sm">Sign Up</button>
+        <div id="userGreeting" class="hidden text-white text-sm"></div>
+        <button id="logoutBtn" onclick="logout()" class="hidden text-white bg-red-600 px-3 py-1 rounded hover:bg-red-700 text-sm">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-slate-800">Privacy Policy</h1>
+    <p class="mb-6 text-gray-700">Last updated: June 12, 2025</p>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">1. Introduction</h2>
+      <p class="mb-4 text-gray-700">
+        Welcome to JJM Gadget Shop ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase from us.
+      </p>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">2. Information We Collect</h2>
+      <p class="mb-4 text-gray-700">
+        We may collect the following types of information:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+        <li><strong>Personal Information:</strong> Name, email address, phone number, shipping/billing address, payment information when you make a purchase or create an account.</li>
+        <li><strong>Device Information:</strong> IP address, browser type, operating system, and other technical details when you visit our website.</li>
+        <li><strong>Usage Data:</strong> Pages visited, time spent on site, products viewed, and other interactions with our website.</li>
+        <li><strong>Cookies:</strong> We use cookies and similar tracking technologies to enhance your experience and analyze website traffic.</li>
+      </ul>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">3. How We Use Your Information</h2>
+      <p class="mb-4 text-gray-700">
+        We use the information we collect for various purposes, including:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+        <li>To process and fulfill your orders</li>
+        <li>To communicate with you about your account or orders</li>
+        <li>To improve our website and services</li>
+        <li>To personalize your shopping experience</li>
+        <li>To prevent fraud and enhance security</li>
+        <li>To comply with legal obligations</li>
+      </ul>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">4. Sharing Your Information</h2>
+      <p class="mb-4 text-gray-700">
+        We may share your information with third parties in the following circumstances:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+        <li><strong>Service Providers:</strong> Payment processors, shipping carriers, and IT service providers who assist in our operations.</li>
+        <li><strong>Legal Requirements:</strong> When required by law or to protect our rights and safety.</li>
+        <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
+      </ul>
+      <p class="text-gray-700">
+        We do not sell your personal information to third parties for marketing purposes.
+      </p>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">5. Data Security</h2>
+      <p class="mb-4 text-gray-700">
+        We implement appropriate security measures to protect your personal information. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+      </p>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">6. Your Rights</h2>
+      <p class="mb-4 text-gray-700">
+        Depending on your location, you may have certain rights regarding your personal information:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+        <li>Access, correct, or delete your personal information</li>
+        <li>Object to or restrict processing of your data</li>
+        <li>Request a copy of your personal data</li>
+        <li>Withdraw consent (where applicable)</li>
+      </ul>
+      <p class="text-gray-700">
+        To exercise these rights, please contact us using the information below.
+      </p>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">7. Cookies and Tracking Technologies</h2>
+      <p class="mb-4 text-gray-700">
+        We use cookies and similar technologies to:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+        <li>Remember your preferences and shopping cart</li>
+        <li>Analyze website traffic and usage patterns</li>
+        <li>Deliver targeted advertisements (if applicable)</li>
+      </ul>
+      <p class="text-gray-700">
+        You can control cookies through your browser settings, but disabling them may affect website functionality.
+      </p>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">8. Children's Privacy</h2>
+      <p class="mb-4 text-gray-700">
+        Our website is not intended for children under 16. We do not knowingly collect personal information from children under 16. If we become aware of such collection, we will take steps to delete the information.
+      </p>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">9. Changes to This Policy</h2>
+      <p class="mb-4 text-gray-700">
+        We may update this Privacy Policy from time to time. We will notify you of significant changes by posting the new policy on our website and updating the "Last updated" date.
+      </p>
+    </section>
+    
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-slate-700">10. Contact Us</h2>
+      <p class="mb-2 text-gray-700">
+        If you have any questions about this Privacy Policy, please contact us:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+        <li>Email: privacy@jjmgadgetshop.com</li>
+        <li>Phone: +63 912 345 6789</li>
+        <li>Address: Balingasag, Philippines</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-800 text-gray-300 mt-10">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto" />
+        <p>Explore the latest in tech with our smartphones, tablets, and wearables.</p>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Contact</h2>
+        <ul>
+          <li>Email: support@jjmgadgetshop.com</li>
+          <li>Phone: +63 912 345 6789</li>
+          <li>Location: Balingasag, Philippines</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Quick Links</h2>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="hover:text-blue-400">Smartphones</a></li>
+          <li><a href="tablets.html" class="hover:text-blue-400">Tablets</a></li>
+          <li><a href="audio.html" class="hover:text-blue-400">Audio</a></li>
+          <li><a href="wearables.html" class="hover:text-blue-400">Wearables</a></li>
+          <li><a href="about.html" class="hover:text-blue-400">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Legal</h2>
+        <ul class="space-y-1">
+          <li><a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a></li>
+          <li><a href="terms.html" class="hover:text-blue-400">Terms of Service</a></li>
+          <li><a href="returns.html" class="hover:text-blue-400">Return Policy</a></li>
+        </ul>
+        <h2 class="text-lg font-semibold mb-3 mt-4 text-white">Follow Us</h2>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-400">Facebook</a>
+          <a href="#" class="hover:text-pink-400">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-500 py-4 border-t border-slate-700">
+      © 2025 JJM Gadgets. All rights reserved. | 
+      <a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a> | 
+      <a href="terms.html" class="hover:text-blue-400">Terms of Service</a>
+    </div>
+  </footer>
+
+  <script>
+    // Basic cart functionality for header
+    function toggleCart() {
+      window.location.href = "index.html"; // Redirect to main page where cart modal exists
+    }
+
+    function openAuthModal(type) {
+      window.location.href = "index.html"; // Redirect to main page where auth modal exists
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("userEmail");
+      window.location.reload();
+    }
+
+    // Check login state on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedUsername = localStorage.getItem("username");
+      if (savedUsername) {
+        document.getElementById("loginBtn").classList.add("hidden");
+        document.getElementById("signupBtn").classList.add("hidden");
+        const greeting = document.getElementById("userGreeting");
+        greeting.textContent = `Welcome, ${savedUsername}!`;
+        greeting.classList.remove("hidden");
+        document.getElementById("logoutBtn").classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>

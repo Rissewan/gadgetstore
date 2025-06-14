@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - JJM Gadget Shop</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .admin-badge {
+      background-color: #3b82f6;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans">
+  <!-- Header -->
+  <header class="bg-slate-800 text-white flex items-center justify-between p-4">
+    <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto">
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="index.html" class="hover:text-blue-400">Smartphones</a>
+      <a href="tablets.html" class="hover:text-white">Tablets</a>
+      <a href="audio.html" class="hover:text-white">Audio</a>
+      <a href="wearables.html" class="hover:text-white">Wearables</a>
+      <a href="about.html" class="text-blue-400">About</a>
+      <a href="track.html">Track Order</a>
+      <a id="profileLink" href="profile.html" class="hidden hover:text-white">My Profile</a>
+    </nav>
+    <div class="relative flex items-center space-x-4">
+      <button onclick="toggleCart()" class="relative text-2xl">
+        🛒
+        <span id="cartCount" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">0</span>
+      </button>
+
+      <div class="flex items-center space-x-2">
+        <button id="loginBtn" onclick="openAuthModal('login')" class="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 text-sm">Log In</button>
+        <button id="signupBtn" onclick="openAuthModal('signup')" class="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700 text-sm">Sign Up</button>
+        <div id="userGreeting" class="hidden text-white text-sm"></div>
+        <button id="logoutBtn" onclick="logout()" class="hidden text-white bg-red-600 px-3 py-1 rounded hover:bg-red-700 text-sm">Log Out</button>
+        <a id="adminLink" href="admin.html" class="hidden text-white bg-purple-600 px-3 py-1 rounded hover:bg-purple-700 text-sm">Admin</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-blue-600 to-indigo-800 text-white py-16 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">About JJM Gadget Shop</h1>
+      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Your trusted partner for the latest and greatest tech gadgets in the Philippines</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <div class="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
+          <p class="text-3xl font-bold">5+</p>
+          <p class="text-sm">Years in Business</p>
+        </div>
+        <div class="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
+          <p class="text-3xl font-bold">10K+</p>
+          <p class="text-sm">Happy Customers</p>
+        </div>
+        <div class="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
+          <p class="text-3xl font-bold">100+</p>
+          <p class="text-sm">Brands Available</p>
+        </div>
+        <div class="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
+          <p class="text-3xl font-bold">24/7</p>
+          <p class="text-sm">Customer Support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="py-16 px-4 md:px-8 max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row gap-12 items-center">
+      <div class="md:w-1/2">
+        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
+             alt="Our Store" 
+             class="rounded-lg shadow-xl w-full h-auto">
+      </div>
+      <div class="md:w-1/2">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Our Story</h2>
+        <p class="text-gray-600 mb-4">
+          Founded in 2020, JJM Gadget Shop started as a small kiosk in Balingasag, Misamis Oriental, with a passion for bringing the latest technology to our community. What began as a humble store selling smartphones has now grown into one of the most trusted gadget retailers in Northern Mindanao.
+        </p>
+        <p class="text-gray-600 mb-4">
+          Our mission is simple: to provide authentic, high-quality gadgets at competitive prices, backed by exceptional customer service. We carefully select every product in our inventory to ensure our customers get the best value for their money.
+        </p>
+        <p class="text-gray-600">
+          Today, we serve customers across the Philippines through our online store, with plans to expand our physical presence to key cities in Visayas and Luzon in the coming years.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Values -->
+  <section class="bg-gray-100 py-16 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Our Core Values</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+          <div class="text-blue-600 text-4xl mb-4">🔍</div>
+          <h3 class="text-xl font-semibold mb-3">Authenticity</h3>
+          <p class="text-gray-600">
+            Every product we sell is 100% authentic with official manufacturer warranties. We never compromise on quality.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+          <div class="text-blue-600 text-4xl mb-4">💡</div>
+          <h3 class="text-xl font-semibold mb-3">Expertise</h3>
+          <p class="text-gray-600">
+            Our team stays updated with the latest tech trends to provide you with knowledgeable recommendations.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+          <div class="text-blue-600 text-4xl mb-4">❤️</div>
+          <h3 class="text-xl font-semibold mb-3">Customer Care</h3>
+          <p class="text-gray-600">
+            Your satisfaction is our priority. We offer after-sales support and easy return policies for peace of mind.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Team -->
+  <section class="py-16 px-4 md:px-8 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Meet Our Team</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white rounded-lg overflow-hidden shadow-md team-member transition-all duration-300">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" 
+             alt="John Doe" 
+             class="w-full h-64 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-1">John Doe</h3>
+          <p class="text-blue-600 mb-3">Founder & CEO</p>
+          <p class="text-gray-600">
+            With over 15 years in the tech industry, John leads JJM Gadget Shop with vision and passion for innovation.
+          </p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-md team-member transition-all duration-300">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" 
+             alt="Jane Smith" 
+             class="w-full h-64 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-1">Jane Smith</h3>
+          <p class="text-blue-600 mb-3">Operations Manager</p>
+          <p class="text-gray-600">
+            Jane ensures our operations run smoothly and our customers receive their orders on time, every time.
+          </p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-md team-member transition-all duration-300">
+        <img src="https://randomuser.me/api/portraits/men/75.jpg" 
+             alt="Mike Johnson" 
+             class="w-full h-64 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-1">Mike Johnson</h3>
+          <p class="text-blue-600 mb-3">Tech Specialist</p>
+          <p class="text-gray-600">
+            Mike is our gadget guru who tests every product and provides expert advice to help you make the right choice.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-gray-100 py-16 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">What Our Customers Say</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="ml-2 text-sm text-gray-600">5.0</span>
+          </div>
+          <p class="text-gray-600 italic mb-4">
+            "I've been buying from JJM Gadget Shop for 3 years now. Their prices are competitive and their customer service is exceptional. My last phone arrived earlier than expected!"
+          </p>
+          <div class="flex items-center">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg" 
+                 alt="Carlos Reyes" 
+                 class="w-10 h-10 rounded-full mr-3">
+            <div>
+              <p class="font-medium">Carlos Reyes</p>
+              <p class="text-sm text-gray-500">Cagayan de Oro</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+            <span class="ml-2 text-sm text-gray-600">4.0</span>
+          </div>
+          <p class="text-gray-600 italic mb-4">
+            "Great selection of gadgets! I appreciate how knowledgeable their staff is. They helped me choose the perfect tablet for my needs within my budget."
+          </p>
+          <div class="flex items-center">
+            <img src="https://randomuser.me/api/portraits/women/33.jpg" 
+                 alt="Maria Santos" 
+                 class="w-10 h-10 rounded-full mr-3">
+            <div>
+              <p class="font-medium">Maria Santos</p>
+              <p class="text-sm text-gray-500">Iligan City</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="ml-2 text-sm text-gray-600">5.0</span>
+          </div>
+          <p class="text-gray-600 italic mb-4">
+            "The warranty service was hassle-free when I had an issue with my earbuds. JJM handled everything and got me a replacement within a week. Highly recommended!"
+          </p>
+          <div class="flex items-center">
+            <img src="https://randomuser.me/api/portraits/men/65.jpg" 
+                 alt="James Wilson" 
+                 class="w-10 h-10 rounded-full mr-3">
+            <div>
+              <p class="font-medium">James Wilson</p>
+              <p class="text-sm text-gray-500">Bukidnon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-16 px-4 md:px-8 bg-gradient-to-r from-blue-600 to-indigo-800 text-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">Ready to Experience the Best Gadget Shopping?</h2>
+      <p class="text-xl mb-8">
+        Join thousands of satisfied customers who trust JJM Gadget Shop for their tech needs.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="index.html" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+          Shop Now
+        </a>
+        <a href="contact.html" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-800 text-gray-300">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto">
+        <p>Explore the latest in tech with our smartphones, tablets, and wearables.</p>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Contact</h2>
+        <ul>
+          <li>Email: support@jjmgadgetshop.com</li>
+          <li>Phone: +63 912 345 6789</li>
+          <li>Location: Balingasag, Philippines</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Quick Links</h2>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="hover:text-blue-400">Smartphones</a></li>
+          <li><a href="tablets.html" class="hover:text-blue-400">Tablets</a></li>
+          <li><a href="audio.html" class="hover:text-blue-400">Audio</a></li>
+          <li><a href="wearables.html" class="hover:text-blue-400">Wearables</a></li>
+          <li><a href="about.html" class="hover:text-blue-400">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Legal</h2>
+        <ul class="space-y-1">
+          <li><a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a></li>
+          <li><a href="terms.html" class="hover:text-blue-400">Terms of Service</a></li>
+          <li><a href="returns.html" class="hover:text-blue-400">Return Policy</a></li>
+        </ul>
+        <h2 class="text-lg font-semibold mb-3 mt-4 text-white">Follow Us</h2>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-400">Facebook</a>
+          <a href="#" class="hover:text-pink-400">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-500 py-4 border-t border-slate-700">
+      © 2025 JJM Gadgets. All rights reserved. | 
+      <a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a> | 
+      <a href="terms.html" class="hover:text-blue-400">Terms of Service</a>
+    </div>
+  </footer>
+
+  <!-- Privacy Consent Banner -->
+  <div id="privacyBanner" class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 hidden">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
+      <p class="mb-2 md:mb-0 text-sm">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+      <div class="flex space-x-2">
+        <button onclick="acceptPrivacy()" class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700 text-sm">Accept</button>
+        <button onclick="declinePrivacy()" class="bg-gray-600 text-white px-4 py-1 rounded hover:bg-gray-700 text-sm">Decline</button>
+        <a href="privacy.html" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 text-sm">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-md relative">
+      <button onclick="toggleCart()" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Your Cart</h2>
+      <div id="cartItems" class="space-y-4 max-h-60 overflow-y-auto border-b pb-4"></div>
+      <div class="flex justify-between items-center mt-4">
+        <strong>Total:</strong>
+        <span id="cartTotal" class="text-lg font-semibold text-indigo-600">₱0</span>
+      </div>
+      <div class="mt-4 flex justify-end">
+        <button onclick="checkout()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Checkout</button>
+      </div>
+
+      <!-- Payment Options -->
+      <div id="paymentOptions" class="mt-4 hidden">
+        <label class="block mb-2 font-medium">Choose Payment Method:</label>
+        <select id="paymentMethod" class="w-full border border-gray-300 rounded px-3 py-2 mb-4">
+          <option value="">-- Select Payment Method --</option>
+          <option value="gcash">GCash</option>
+          <option value="cod">Cash on Delivery</option>
+        </select>
+        <button onclick="processPayment()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">Pay Now</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Auth Modal -->
+  <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg max-w-md w-full relative">
+      <button onclick="closeAuthModal()" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+      
+      <!-- Login Form -->
+      <div id="loginForm">
+        <h2 class="text-xl font-bold mb-4">Log In</h2>
+        <form id="loginFormElement" onsubmit="handleLogin(event)">
+          <div class="mb-4">
+            <label for="loginEmail" class="block text-sm font-medium mb-1">Email or Username</label>
+            <input type="text" id="loginEmail" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="loginPassword" class="block text-sm font-medium mb-1">Password</label>
+            <input type="password" id="loginPassword" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Log In</button>
+        </form>
+        <p class="text-sm mt-4 text-center">
+          Don't have an account? 
+          <button onclick="switchToSignup()" class="text-blue-600 hover:underline">Sign up here</button>
+        </p>
+      </div>
+      
+      <!-- Signup Form -->
+      <div id="signupForm" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Sign Up</h2>
+        <form id="signupFormElement" onsubmit="handleSignup(event)">
+          <div class="mb-4">
+            <label for="signupName" class="block text-sm font-medium mb-1">Full Name</label>
+            <input type="text" id="signupName" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="signupEmail" class="block text-sm font-medium mb-1">Email</label>
+            <input type="email" id="signupEmail" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="signupPassword" class="block text-sm font-medium mb-1">Password</label>
+            <input type="password" id="signupPassword" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="signupConfirmPassword" class="block text-sm font-medium mb-1">Confirm Password</label>
+            <input type="password" id="signupConfirmPassword" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4 flex items-center">
+            <input type="checkbox" id="privacyConsent" required class="mr-2">
+            <label for="privacyConsent" class="text-sm">I agree to the <a href="privacy.html" class="text-blue-600 hover:underline">Privacy Policy</a> and <a href="terms.html" class="text-blue-600 hover:underline">Terms of Service</a></label>
+          </div>
+          <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Sign Up</button>
+        </form>
+        <p class="text-sm mt-4 text-center">
+          Already have an account? 
+          <button onclick="switchToLogin()" class="text-blue-600 hover:underline">Log in here</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Constants and Configuration
+    const ADMIN_CREDENTIALS = {
+      username: 'admin',
+      password: 'admin123',
+      email: 'admin@jjmgadgetshop.com'
+    };
+
+    // State Management
+    let cart = [];
+
+    // DOM Elements
+    const elements = {
+      cartCount: document.getElementById('cartCount'),
+      cartItems: document.getElementById('cartItems'),
+      cartTotal: document.getElementById('cartTotal'),
+      cartModal: document.getElementById('cartModal'),
+      paymentOptions: document.getElementById('paymentOptions'),
+      paymentMethod: document.getElementById('paymentMethod'),
+      authModal: document.getElementById('authModal'),
+      loginForm: document.getElementById('loginForm'),
+      signupForm: document.getElementById('signupForm'),
+      loginBtn: document.getElementById('loginBtn'),
+      signupBtn: document.getElementById('signupBtn'),
+      userGreeting: document.getElementById('userGreeting'),
+      logoutBtn: document.getElementById('logoutBtn'),
+      adminLink: document.getElementById('adminLink'),
+      privacyBanner: document.getElementById('privacyBanner')
+    };
+
+    // Utility Functions
+    function formatPrice(price) {
+      return `₱${price.toLocaleString()}`;
+    }
+
+    function showNotification(message, type = 'success') {
+      const colors = {
+        success: 'bg-green-500',
+        error: 'bg-red-500',
+        info: 'bg-blue-500'
+      };
+      
+      const notification = document.createElement("div");
+      notification.className = `fixed bottom-4 left-4 ${colors[type]} text-white px-4 py-2 rounded shadow-lg animate-bounce`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => notification.remove(), 2000);
+    }
+
+    // Cart Functions
+    function updateCartUI() {
+      elements.cartCount.textContent = cart.length;
+      elements.cartItems.innerHTML = '';
+      
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        total += item.price;
+        elements.cartItems.innerHTML += `
+          <div class="flex items-center justify-between gap-4">
+            <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded">
+            <div class="flex-1">
+              <p class="font-medium">${item.title}</p>
+              <p class="text-sm text-gray-500">${formatPrice(item.price)}</p>
+            </div>
+            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-sm">Remove</button>
+          </div>`;
+      });
+
+      elements.cartTotal.textContent = formatPrice(total);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function toggleCart() {
+      elements.cartModal.classList.toggle('hidden');
+      elements.cartModal.classList.toggle('flex');
+    }
+
+    // Checkout Functions
+    function checkout() {
+      if (cart.length === 0) {
+        showNotification("Your cart is empty!", 'error');
+        return;
+      }
+
+      if (!localStorage.getItem('username')) {
+        showNotification("Please log in to complete your purchase", 'error');
+        openAuthModal('login');
+        return;
+      }
+
+      elements.paymentOptions.classList.remove("hidden");
+      elements.paymentOptions.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function processPayment() {
+      const method = elements.paymentMethod.value;
+      
+      if (!method) {
+        showNotification("Please select a payment method.", 'error');
+        return;
+      }
+
+      try {
+        const payButton = elements.paymentOptions.querySelector('button');
+        const originalText = payButton.textContent;
+        payButton.textContent = "Processing...";
+        payButton.disabled = true;
+
+        const order = {
+          id: 'ord_' + Math.random().toString(36).substr(2, 9),
+          date: new Date().toISOString(),
+          items: cart.map(item => ({
+            id: item.id,
+            title: item.title,
+            price: item.price
+          })),
+          total: cart.reduce((sum, item) => sum + item.price, 0),
+          paymentMethod: method,
+          customer: {
+            name: localStorage.getItem('username'),
+            email: localStorage.getItem('userEmail')
+          },
+          status: 'pending'
+        };
+
+        const paymentSuccess = await simulatePaymentAPI(order);
+
+        if (paymentSuccess) {
+          const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+          orders.push(order);
+          localStorage.setItem('orders', JSON.stringify(orders));
+
+          cart = [];
+          updateCartUI();
+          showOrderConfirmation(order);
+        } else {
+          showNotification("Payment failed. Please try again.", 'error');
+        }
+      } catch (error) {
+        console.error("Payment error:", error);
+        showNotification("An error occurred during payment processing.", 'error');
+      } finally {
+        const payButton = elements.paymentOptions.querySelector('button');
+        payButton.textContent = originalText;
+        payButton.disabled = false;
+      }
+    }
+
+    function simulatePaymentAPI(order) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(Math.random() < 0.85);
+        }, 1500);
+      });
+    }
+
+    function showOrderConfirmation(order) {
+      elements.paymentOptions.classList.add("hidden");
+      elements.paymentMethod.value = '';
+      
+      const confirmationModal = document.createElement('div');
+      confirmationModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+      confirmationModal.innerHTML = `
+        <div class="bg-white p-6 rounded-lg max-w-md w-full relative">
+          <button onclick="this.parentElement.parentElement.remove()" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+          <h2 class="text-xl font-bold mb-4 text-green-600">Order Confirmed!</h2>
+          <p class="mb-2">Thank you for your purchase, ${order.customer.name}!</p>
+          
+          <div class="border-t pt-3 mt-3">
+            <p class="font-medium">Order #${order.id}</p>
+            <p class="text-sm text-gray-600">${new Date(order.date).toLocaleString()}</p>
+            
+            <div class="mt-3 space-y-2 max-h-40 overflow-y-auto">
+              ${order.items.map(item => `
+                <div class="flex justify-between">
+                  <span>${item.title}</span>
+                  <span>${formatPrice(item.price)}</span>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="border-t mt-3 pt-3 flex justify-between font-bold">
+              <span>Total:</span>
+              <span>${formatPrice(order.total)}</span>
+            </div>
+            
+            <div class="mt-4 text-sm">
+              <p class="font-medium">Payment Method:</p>
+              <p>${order.paymentMethod.toUpperCase()}</p>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-600">
+              <p>A confirmation has been sent to ${order.customer.email}</p>
+            </div>
+            
+            <div class="mt-4 flex gap-2">
+              <button onclick="this.parentElement.parentElement.parentElement.remove(); toggleCart();" 
+                      class="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300">
+                View Order
+              </button>
+              <button onclick="closeAllAndBrowse()" 
+                      class="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Continue Shopping
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(confirmationModal);
+    }
+
+    function closeAllAndBrowse() {
+      elements.cartModal.classList.add('hidden');
+      elements.cartModal.classList.remove('flex');
+      
+      const confirmationModal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50.flex');
+      if (confirmationModal) {
+        confirmationModal.remove();
+      }
+      
+      window.location.href = 'index.html';
+    }
+
+    // Auth Functions
+    function openAuthModal(type) {
+      elements.authModal.classList.remove('hidden');
+      elements.authModal.classList.add('flex');
+      type === 'login' ? switchToLogin() : switchToSignup();
+    }
+
+    function closeAuthModal() {
+      elements.authModal.classList.add('hidden');
+      elements.authModal.classList.remove('flex');
+    }
+
+    function switchToLogin() {
+      elements.loginForm.classList.remove('hidden');
+      elements.signupForm.classList.add('hidden');
+    }
+
+    function switchToSignup() {
+      elements.loginForm.classList.add('hidden');
+      elements.signupForm.classList.remove('hidden');
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+        localStorage.setItem('username', ADMIN_CREDENTIALS.username);
+        localStorage.setItem('userEmail', ADMIN_CREDENTIALS.email);
+        localStorage.setItem('isAdmin', 'true');
+        updateUserUI('Admin');
+        closeAuthModal();
+        showNotification('Admin login successful!');
+        return;
+      }
+      
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => (u.email === username || u.username === username) && u.password === password);
+      
+      if (user) {
+        localStorage.setItem('username', user.name);
+        localStorage.setItem('userEmail', user.email);
+        localStorage.setItem('isAdmin', 'false');
+        updateUserUI(user.name);
+        closeAuthModal();
+        showNotification('Login successful!');
+      } else {
+        showNotification('Invalid username/email or password', 'error');
+      }
+    }
+
+    function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('signupConfirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        showNotification("Passwords don't match!", 'error');
+        return;
+      }
+      
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const userExists = users.some(u => u.email === email);
+      
+      if (userExists) {
+        showNotification('User with this email already exists!', 'error');
+        return;
+      }
+      
+      const newUser = { 
+        name, 
+        email, 
+        password,
+        username: email.split('@')[0],
+        createdAt: new Date().toISOString() 
+      };
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      localStorage.setItem('username', name);
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('isAdmin', 'false');
+      
+      updateUserUI(name);
+      closeAuthModal();
+      showNotification('Account created successfully!');
+    }
+
+    function updateUserUI(username) {
+      const isAdmin = localStorage.getItem('isAdmin') === 'true';
+      
+      elements.loginBtn.classList.add("hidden");
+      elements.signupBtn.classList.add("hidden");
+      
+      elements.userGreeting.innerHTML = isAdmin 
+        ? `Welcome, <span class="font-bold">${username}</span> <span class="admin-badge">ADMIN</span>` 
+        : `Welcome, ${username}!`;
+      
+      elements.userGreeting.classList.remove("hidden");
+      elements.logoutBtn.classList.remove("hidden");
+      document.getElementById('profileLink').classList.remove("hidden");
+      
+      if (isAdmin) {
+        elements.adminLink.classList.remove("hidden");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("isAdmin");
+      window.location.reload();
+    }
+
+    // Privacy Functions
+    function acceptPrivacy() {
+      localStorage.setItem('privacyConsent', 'true');
+      elements.privacyBanner.classList.add('hidden');
+    }
+
+    function declinePrivacy() {
+      localStorage.setItem('privacyConsent', 'false');
+      elements.privacyBanner.classList.add('hidden');
+    }
+
+    // Initialize App
+    function init() {
+      renderProducts();
+      updateCartUI();
+
+      const savedUsername = localStorage.getItem("username");
+      if (savedUsername) {
+        updateUserUI(savedUsername);
+      }
+
+      if (localStorage.getItem('privacyConsent') === null) {
+        elements.privacyBanner.classList.remove('hidden');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gadget Shop - Audio</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .admin-badge {
+      background-color: #3b82f6;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+    .disabled-btn {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans">
+  <!-- Header -->
+  <header class="bg-slate-800 text-white flex items-center justify-between p-4">
+    <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto">
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="index.html" class="hover:text-blue-400 font-medium">Home</a>
+      <a href="smartphones.html" class="hover:text-white">Smartphones</a>
+      <a href="tablets.html" class="hover:text-white">Tablets</a>
+      <a href="audio.html" class="hover:text-blue-400">Audio</a>
+      <a href="wearables.html" class="hover:text-white">Wearables</a>
+      <a href="about.html" class="hover:text-white">About</a>
+      <a href="track.html">Track Order</a>
+      <a id="profileLink" href="profile.html" class="hidden hover:text-white">My Profile</a>
+    </nav>
+    <div class="relative flex items-center space-x-4">
+      <button onclick="toggleCart()" class="relative text-2xl">
+        🛒
+        <span id="cartCount" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">0</span>
+      </button>
+
+      <div class="flex items-center space-x-2">
+        <button id="loginBtn" onclick="openAuthModal('login')" class="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 text-sm">Log In</button>
+        <button id="signupBtn" onclick="openAuthModal('signup')" class="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700 text-sm">Sign Up</button>
+        <div id="userGreeting" class="hidden text-white text-sm"></div>
+        <button id="logoutBtn" onclick="logout()" class="hidden text-white bg-red-600 px-3 py-1 rounded hover:bg-red-700 text-sm">Log Out</button>
+        <a id="adminLink" href="admin.html" class="hidden text-white bg-purple-600 px-3 py-1 rounded hover:bg-purple-700 text-sm">Admin</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search Section -->
+  <div class="p-4 md:p-6">
+    <div class="relative w-full max-w-md mx-auto">
+      <input 
+        type="text" 
+        id="searchInput" 
+        oninput="filterProducts()" 
+        placeholder="Search audio devices by name, brand or features..." 
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+      >
+      <div class="absolute left-3 top-2.5 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Section -->
+  <section class="p-4 md:p-8 bg-gray-100">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Premium Audio Devices</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="productGrid">
+      <!-- Product Cards will be populated by JavaScript -->
+    </div>
+  </section>
+
+  <!-- Product Modal -->
+  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg max-w-lg w-full relative">
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+      <h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
+      <img id="modalImage" src="" alt="Product Image" class="rounded mb-4 w-full h-auto">
+      <p id="modalDescription" class="text-gray-700 mb-4"></p>
+      <div class="flex items-center mb-2">
+        <span class="text-yellow-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        <span class="ml-2 text-sm text-gray-600">(4.0 based on 123 reviews)</span>
+      </div>
+      <div class="space-y-3 max-h-40 overflow-y-auto border-t pt-3" id="reviewsContainer">
+        <!-- Reviews will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-md relative">
+      <button onclick="toggleCart()" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Your Cart</h2>
+      <div id="cartItems" class="space-y-4 max-h-60 overflow-y-auto border-b pb-4"></div>
+      <div class="flex justify-between items-center mt-4">
+        <strong>Total:</strong>
+        <span id="cartTotal" class="text-lg font-semibold text-indigo-600">₱0</span>
+      </div>
+      <div class="mt-4 flex justify-end">
+        <button onclick="checkout()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Checkout</button>
+      </div>
+
+      <!-- Payment Options -->
+      <div id="paymentOptions" class="mt-4 hidden">
+        <label class="block mb-2 font-medium">Choose Payment Method:</label>
+        <select id="paymentMethod" class="w-full border border-gray-300 rounded px-3 py-2 mb-4">
+          <option value="">-- Select Payment Method --</option>
+          <option value="gcash">GCash</option>
+          <option value="cod">Cash on Delivery</option>
+        </select>
+        <button onclick="processPayment()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">Pay Now</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Auth Modal -->
+  <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg max-w-md w-full relative">
+      <button onclick="closeAuthModal()" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+      
+      <!-- Login Form -->
+      <div id="loginForm">
+        <h2 class="text-xl font-bold mb-4">Log In</h2>
+        <form id="loginFormElement" onsubmit="handleLogin(event)">
+          <div class="mb-4">
+            <label for="loginEmail" class="block text-sm font-medium mb-1">Email or Username</label>
+            <input type="text" id="loginEmail" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="loginPassword" class="block text-sm font-medium mb-1">Password</label>
+            <input type="password" id="loginPassword" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Log In</button>
+        </form>
+        <p class="text-sm mt-4 text-center">
+          Don't have an account? 
+          <button onclick="switchToSignup()" class="text-blue-600 hover:underline">Sign up here</button>
+        </p>
+      </div>
+      
+      <!-- Signup Form -->
+      <div id="signupForm" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Sign Up</h2>
+        <form id="signupFormElement" onsubmit="handleSignup(event)">
+          <div class="mb-4">
+            <label for="signupName" class="block text-sm font-medium mb-1">Full Name</label>
+            <input type="text" id="signupName" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="signupEmail" class="block text-sm font-medium mb-1">Email</label>
+            <input type="email" id="signupEmail" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="signupPassword" class="block text-sm font-medium mb-1">Password</label>
+            <input type="password" id="signupPassword" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4">
+            <label for="signupConfirmPassword" class="block text-sm font-medium mb-1">Confirm Password</label>
+            <input type="password" id="signupConfirmPassword" required class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div class="mb-4 flex items-center">
+            <input type="checkbox" id="privacyConsent" required class="mr-2">
+            <label for="privacyConsent" class="text-sm">I agree to the <a href="privacy.html" class="text-blue-600 hover:underline">Privacy Policy</a> and <a href="terms.html" class="text-blue-600 hover:underline">Terms of Service</a></label>
+          </div>
+          <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Sign Up</button>
+        </form>
+        <p class="text-sm mt-4 text-center">
+          Already have an account? 
+          <button onclick="switchToLogin()" class="text-blue-600 hover:underline">Log in here</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-800 text-gray-300 mt-10">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <img src="Screenshot_2025-05-25_143912-removebg-preview.png" alt="Logo" class="h-10 w-auto">
+        <p>Explore the latest in tech with our smartphones, tablets, and wearables.</p>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Contact</h2>
+        <ul>
+          <li>Email: support@jjmgadgetshop.com</li>
+          <li>Phone: +63 912 345 6789</li>
+          <li>Location: Balingasag, Philippines</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Quick Links</h2>
+        <ul class="space-y-1">
+          <li><a href="index.html" class="hover:text-blue-400">Smartphones</a></li>
+          <li><a href="tablets.html" class="hover:text-blue-400">Tablets</a></li>
+          <li><a href="audio.html" class="hover:text-blue-400">Audio</a></li>
+          <li><a href="wearables.html" class="hover:text-blue-400">Wearables</a></li>
+          <li><a href="about.html" class="hover:text-blue-400">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold mb-3 text-white">Legal</h2>
+        <ul class="space-y-1">
+          <li><a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a></li>
+          <li><a href="terms.html" class="hover:text-blue-400">Terms of Service</a></li>
+          <li><a href="returns.html" class="hover:text-blue-400">Return Policy</a></li>
+        </ul>
+        <h2 class="text-lg font-semibold mb-3 mt-4 text-white">Follow Us</h2>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-400">Facebook</a>
+          <a href="#" class="hover:text-pink-400">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-500 py-4 border-t border-slate-700">
+      © 2025 JJM Gadgets. All rights reserved. | 
+      <a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a> | 
+      <a href="terms.html" class="hover:text-blue-400">Terms of Service</a>
+    </div>
+  </footer>
+
+  <!-- Privacy Consent Banner -->
+  <div id="privacyBanner" class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 hidden">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
+      <p class="mb-2 md:mb-0 text-sm">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+      <div class="flex space-x-2">
+        <button onclick="acceptPrivacy()" class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700 text-sm">Accept</button>
+        <button onclick="declinePrivacy()" class="bg-gray-600 text-white px-4 py-1 rounded hover:bg-gray-700 text-sm">Decline</button>
+        <a href="privacy.html" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 text-sm">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Constants and Configuration
+    const PRODUCT_DATA = {
+      sonyxm5: { 
+        id: 'sonyxm5',
+        title: "Sony WH-1000XM5", 
+        price: 18000, 
+        description: "Industry-leading noise cancellation, 30-hour battery life, premium sound quality. Best for audiophiles and travelers.", 
+        image: "audio1.jpeg",
+        brand: "sony",
+        features: "noise cancellation wireless bluetooth",
+        quantity: 12,
+        reviews: [
+          { author: "John D.", content: "Best noise cancellation I've ever experienced. Worth every peso.", rating: 5 },
+          { author: "Maria L.", content: "Super comfortable for long listening sessions.", rating: 5 }
+        ]
+      },
+      boseqc45: { 
+        id: 'boseqc45',
+        title: "Bose QuietComfort 45", 
+        price: 16000, 
+        description: "Legendary comfort, balanced sound profile, 24-hour battery. Perfect for daily commuters and office use.", 
+        image: "audio2.jpeg",
+        brand: "bose",
+        features: "comfort noise cancellation wireless",
+        quantity: 8,
+        reviews: [
+          { author: "Alex K.", content: "Most comfortable headphones I've ever worn.", rating: 5 },
+          { author: "Sarah M.", content: "Sound quality is amazing but a bit pricey.", rating: 4 }
+        ]
+      },
+      airpodsmax: { 
+        id: 'airpodsmax',
+        title: "Apple AirPods Max", 
+        price: 28000, 
+        description: "Premium Apple design, spatial audio, seamless Apple ecosystem integration. For Apple enthusiasts.", 
+        image: "audio3.jpeg",
+        brand: "apple",
+        features: "spatial audio noise cancellation wireless",
+        quantity: 5,
+        reviews: [
+          { author: "Tom B.", content: "The sound quality is phenomenal with Apple devices.", rating: 5 },
+          { author: "Lisa P.", content: "Expensive but the best for Apple users.", rating: 4 }
+        ]
+      }
+    };
+
+    const ADMIN_CREDENTIALS = {
+      username: 'admin',
+      password: 'admin123',
+      email: 'admin@jjmgadgetshop.com'
+    };
+
+    // State Management
+    let cart = [];
+
+    // DOM Elements
+    const elements = {
+      productGrid: document.getElementById('productGrid'),
+      searchInput: document.getElementById('searchInput'),
+      cartCount: document.getElementById('cartCount'),
+      cartItems: document.getElementById('cartItems'),
+      cartTotal: document.getElementById('cartTotal'),
+      cartModal: document.getElementById('cartModal'),
+      paymentOptions: document.getElementById('paymentOptions'),
+      paymentMethod: document.getElementById('paymentMethod'),
+      productModal: document.getElementById('productModal'),
+      modalTitle: document.getElementById('modalTitle'),
+      modalImage: document.getElementById('modalImage'),
+      modalDescription: document.getElementById('modalDescription'),
+      reviewsContainer: document.getElementById('reviewsContainer'),
+      authModal: document.getElementById('authModal'),
+      loginForm: document.getElementById('loginForm'),
+      signupForm: document.getElementById('signupForm'),
+      loginBtn: document.getElementById('loginBtn'),
+      signupBtn: document.getElementById('signupBtn'),
+      userGreeting: document.getElementById('userGreeting'),
+      logoutBtn: document.getElementById('logoutBtn'),
+      adminLink: document.getElementById('adminLink'),
+      privacyBanner: document.getElementById('privacyBanner')
+    };
+
+    // Utility Functions
+    function formatPrice(price) {
+      return `₱${price.toLocaleString()}`;
+    }
+
+    function showNotification(message, type = 'success') {
+      const colors = {
+        success: 'bg-green-500',
+        error: 'bg-red-500',
+        info: 'bg-blue-500'
+      };
+      
+      const notification = document.createElement("div");
+      notification.className = `fixed bottom-4 left-4 ${colors[type]} text-white px-4 py-2 rounded shadow-lg animate-bounce`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => notification.remove(), 2000);
+    }
+
+    // Product Functions
+    function renderProducts() {
+      elements.productGrid.innerHTML = '';
+      
+      Object.values(PRODUCT_DATA).forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow';
+        productCard.dataset.brand = product.brand;
+        productCard.dataset.price = product.price;
+        productCard.dataset.features = product.features;
+        
+        const outOfStock = product.quantity <= 0;
+        const stockStatus = outOfStock ? 
+          '<p class="text-red-500 text-sm font-medium">Out of Stock</p>' : 
+          `<p class="text-green-600 text-sm font-medium">${product.quantity} in stock</p>`;
+        
+        productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.title}" class="rounded mb-4 w-full h-48 object-contain">
+          <h3 class="text-lg font-semibold">${product.title}</h3>
+          <p class="text-sm text-gray-600">${product.description.split(',')[0]}</p>
+          ${stockStatus}
+          <p class="font-bold text-indigo-600">${formatPrice(product.price)}</p>
+          <button onclick="openModal('${product.id}')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full">View Product Reviews</button>
+          <button onclick="addToCart('${product.id}')" 
+                  class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full ${outOfStock ? 'disabled-btn' : ''}"
+                  ${outOfStock ? 'disabled' : ''}>
+            ${outOfStock ? 'Out of Stock' : 'Add to Cart'}
+          </button>
+        `;
+        
+        elements.productGrid.appendChild(productCard);
+      });
+    }
+
+    function filterProducts() {
+      const query = elements.searchInput.value.toLowerCase();
+      const products = document.querySelectorAll("#productGrid > div");
+
+      products.forEach(product => {
+        const title = product.querySelector("h3").textContent.toLowerCase();
+        const description = product.querySelector("p.text-sm").textContent.toLowerCase();
+        const brand = product.dataset.brand.toLowerCase();
+        const features = product.dataset.features.toLowerCase();
+
+        const matches = title.includes(query) || 
+                       description.includes(query) || 
+                       brand.includes(query) || 
+                       features.includes(query);
+
+        product.style.display = matches ? "block" : "none";
+      });
+    }
+
+    // Cart Functions
+    function addToCart(productId) {
+      const product = PRODUCT_DATA[productId];
+      
+      if (!product) return;
+      
+      if (product.quantity <= 0) {
+        showNotification(`${product.title} is out of stock!`, 'error');
+        return;
+      }
+      
+      // Check if product is already in cart
+      const existingItem = cart.find(item => item.id === productId);
+      if (existingItem) {
+        if (existingItem.quantityInCart >= product.quantity) {
+          showNotification(`Only ${product.quantity} available in stock!`, 'error');
+          return;
+        }
+        existingItem.quantityInCart += 1;
+      } else {
+        cart.push({
+          ...product,
+          quantityInCart: 1
+        });
+      }
+      
+      updateCartUI();
+      showNotification(`${product.title} added to cart!`);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function changeQuantity(index, change) {
+      const item = cart[index];
+      const product = PRODUCT_DATA[item.id];
+      
+      const newQuantity = item.quantityInCart + change;
+      
+      if (newQuantity <= 0) {
+        removeFromCart(index);
+        return;
+      }
+      
+      if (newQuantity > product.quantity) {
+        showNotification(`Only ${product.quantity} available in stock!`, 'error');
+        return;
+      }
+      
+      item.quantityInCart = newQuantity;
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      elements.cartCount.textContent = cart.reduce((sum, item) => sum + item.quantityInCart, 0);
+      elements.cartItems.innerHTML = '';
+      
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        total += item.price * item.quantityInCart;
+        elements.cartItems.innerHTML += `
+          <div class="flex items-center justify-between gap-4">
+            <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded">
+            <div class="flex-1">
+              <p class="font-medium">${item.title}</p>
+              <p class="text-sm text-gray-500">${formatPrice(item.price)} × ${item.quantityInCart}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="changeQuantity(${index}, -1)" class="text-gray-500 hover:text-gray-700 text-sm">-</button>
+              <span>${item.quantityInCart}</span>
+              <button onclick="changeQuantity(${index}, 1)" class="text-gray-500 hover:text-gray-700 text-sm">+</button>
+              <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-sm ml-2">Remove</button>
+            </div>
+          </div>`;
+      });
+
+      elements.cartTotal.textContent = formatPrice(total);
+    }
+
+    function toggleCart() {
+      elements.cartModal.classList.toggle('hidden');
+      elements.cartModal.classList.toggle('flex');
+    }
+
+    // Checkout Functions
+    function checkout() {
+      if (cart.length === 0) {
+        showNotification("Your cart is empty!", 'error');
+        return;
+      }
+
+      if (!localStorage.getItem('username')) {
+        showNotification("Please log in to complete your purchase", 'error');
+        openAuthModal('login');
+        return;
+      }
+
+      elements.paymentOptions.classList.remove("hidden");
+      elements.paymentOptions.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function processPayment() {
+      const method = elements.paymentMethod.value;
+      
+      if (!method) {
+        showNotification("Please select a payment method.", 'error');
+        return;
+      }
+
+      try {
+        // First verify all items are still in stock
+        for (const item of cart) {
+          const product = PRODUCT_DATA[item.id];
+          if (product.quantity < item.quantityInCart) {
+            showNotification(`Sorry, ${product.title} only has ${product.quantity} left in stock!`, 'error');
+            return;
+          }
+        }
+
+        // Reduce quantities
+        cart.forEach(item => {
+          PRODUCT_DATA[item.id].quantity -= item.quantityInCart;
+        });
+
+        const payButton = elements.paymentOptions.querySelector('button');
+        const originalText = payButton.textContent;
+        payButton.textContent = "Processing...";
+        payButton.disabled = true;
+
+        const order = {
+          id: 'ord_' + Math.random().toString(36).substr(2, 9),
+          date: new Date().toISOString(),
+          items: cart.map(item => ({
+            id: item.id,
+            title: item.title,
+            price: item.price,
+            quantity: item.quantityInCart
+          })),
+          total: cart.reduce((sum, item) => sum + (item.price * item.quantityInCart), 0),
+          paymentMethod: method,
+          customer: {
+            name: localStorage.getItem('username'),
+            email: localStorage.getItem('userEmail')
+          },
+          status: 'pending'
+        };
+
+        const paymentSuccess = await simulatePaymentAPI(order);
+
+        if (paymentSuccess) {
+          const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+          orders.push(order);
+          localStorage.setItem('orders', JSON.stringify(orders));
+
+          cart = [];
+          updateCartUI();
+          renderProducts(); // Refresh product quantities
+          showOrderConfirmation(order);
+        } else {
+          // If payment failed, restore quantities
+          cart.forEach(item => {
+            PRODUCT_DATA[item.id].quantity += item.quantityInCart;
+          });
+          showNotification("Payment failed. Please try again.", 'error');
+        }
+      } catch (error) {
+        console.error("Payment error:", error);
+        showNotification("An error occurred during payment processing.", 'error');
+      } finally {
+        const payButton = elements.paymentOptions.querySelector('button');
+        payButton.textContent = originalText;
+        payButton.disabled = false;
+      }
+    }
+
+    function simulatePaymentAPI(order) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(Math.random() < 0.85);
+        }, 1500);
+      });
+    }
+
+    function showOrderConfirmation(order) {
+      elements.paymentOptions.classList.add("hidden");
+      elements.paymentMethod.value = '';
+      
+      const confirmationModal = document.createElement('div');
+      confirmationModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+      confirmationModal.innerHTML = `
+        <div class="bg-white p-6 rounded-lg max-w-md w-full relative">
+          <button onclick="this.parentElement.parentElement.remove()" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+          <h2 class="text-xl font-bold mb-4 text-green-600">Order Confirmed!</h2>
+          <p class="mb-2">Thank you for your purchase, ${order.customer.name}!</p>
+          
+          <div class="border-t pt-3 mt-3">
+            <p class="font-medium">Order #${order.id}</p>
+            <p class="text-sm text-gray-600">${new Date(order.date).toLocaleString()}</p>
+            
+            <div class="mt-3 space-y-2 max-h-40 overflow-y-auto">
+              ${order.items.map(item => `
+                <div class="flex justify-between">
+                  <span>${item.title} (×${item.quantity})</span>
+                  <span>${formatPrice(item.price * item.quantity)}</span>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="border-t mt-3 pt-3 flex justify-between font-bold">
+              <span>Total:</span>
+              <span>${formatPrice(order.total)}</span>
+            </div>
+            
+            <div class="mt-4 text-sm">
+              <p class="font-medium">Payment Method:</p>
+              <p>${order.paymentMethod.toUpperCase()}</p>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-600">
+              <p>A confirmation has been sent to ${order.customer.email}</p>
+            </div>
+            
+            <div class="mt-4 flex gap-2">
+              <button onclick="this.parentElement.parentElement.parentElement.remove(); toggleCart();" 
+                      class="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300">
+                View Order
+              </button>
+              <button onclick="closeAllAndBrowse()" 
+                      class="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Continue Shopping
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(confirmationModal);
+    }
+
+    function closeAllAndBrowse() {
+      elements.cartModal.classList.add('hidden');
+      elements.cartModal.classList.remove('flex');
+      
+      const confirmationModal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50.flex');
+      if (confirmationModal) {
+        confirmationModal.remove();
+      }
+      
+      document.querySelector('section.p-4').scrollIntoView({ behavior: 'smooth' });
+      elements.searchInput.value = '';
+      filterProducts();
+    }
+
+    // Modal Functions
+    function openModal(productId) {
+      const product = PRODUCT_DATA[productId];
+      
+      if (product) {
+        elements.modalTitle.textContent = product.title;
+        elements.modalDescription.textContent = product.description;
+        elements.modalImage.src = product.image;
+        
+        elements.reviewsContainer.innerHTML = '';
+        product.reviews.forEach(review => {
+          const reviewElement = document.createElement('div');
+          reviewElement.innerHTML = `
+            <div class="flex items-center mb-1">
+              ${'<span class="text-yellow-400">&#9733;</span>'.repeat(review.rating)}
+              ${'<span class="text-gray-300">&#9733;</span>'.repeat(5 - review.rating)}
+            </div>
+            <p class="text-sm font-medium">${review.author}</p>
+            <p class="text-sm text-gray-600">"${review.content}"</p>
+          `;
+          elements.reviewsContainer.appendChild(reviewElement);
+        });
+        
+        elements.productModal.classList.remove('hidden');
+        elements.productModal.classList.add('flex');
+      }
+    }
+
+    function closeModal() {
+      elements.productModal.classList.add('hidden');
+      elements.productModal.classList.remove('flex');
+    }
+
+    // Auth Functions
+    function openAuthModal(type) {
+      elements.authModal.classList.remove('hidden');
+      elements.authModal.classList.add('flex');
+      type === 'login' ? switchToLogin() : switchToSignup();
+    }
+
+    function closeAuthModal() {
+      elements.authModal.classList.add('hidden');
+      elements.authModal.classList.remove('flex');
+    }
+
+    function switchToLogin() {
+      elements.loginForm.classList.remove('hidden');
+      elements.signupForm.classList.add('hidden');
+    }
+
+    function switchToSignup() {
+      elements.loginForm.classList.add('hidden');
+      elements.signupForm.classList.remove('hidden');
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+        localStorage.setItem('username', ADMIN_CREDENTIALS.username);
+        localStorage.setItem('userEmail', ADMIN_CREDENTIALS.email);
+        localStorage.setItem('isAdmin', 'true');
+        updateUserUI('Admin');
+        closeAuthModal();
+        showNotification('Admin login successful!');
+        return;
+      }
+      
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => (u.email === username || u.username === username) && u.password === password);
+      
+      if (user) {
+        localStorage.setItem('username', user.name);
+        localStorage.setItem('userEmail', user.email);
+        localStorage.setItem('isAdmin', 'false');
+        updateUserUI(user.name);
+        closeAuthModal();
+        showNotification('Login successful!');
+      } else {
+        showNotification('Invalid username/email or password', 'error');
+      }
+    }
+
+    function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('signupConfirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        showNotification("Passwords don't match!", 'error');
+        return;
+      }
+      
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const userExists = users.some(u => u.email === email);
+      
+      if (userExists) {
+        showNotification('User with this email already exists!', 'error');
+        return;
+      }
+      
+      const newUser = { 
+        name, 
+        email, 
+        password,
+        username: email.split('@')[0],
+        createdAt: new Date().toISOString() 
+      };
+      
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      localStorage.setItem('username', name);
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('isAdmin', 'false');
+      
+      updateUserUI(name);
+      closeAuthModal();
+      showNotification('Account created successfully!');
+    }
+
+    function updateUserUI(username) {
+      const isAdmin = localStorage.getItem('isAdmin') === 'true';
+      
+      elements.loginBtn.classList.add("hidden");
+      elements.signupBtn.classList.add("hidden");
+      
+      elements.userGreeting.innerHTML = isAdmin 
+        ? `Welcome, <span class="font-bold">${username}</span> <span class="admin-badge">ADMIN</span>` 
+        : `Welcome, ${username}!`;
+      
+      elements.userGreeting.classList.remove("hidden");
+      elements.logoutBtn.classList.remove("hidden");
+      document.getElementById('profileLink').classList.remove("hidden");
+      
+      if (isAdmin) {
+        elements.adminLink.classList.remove("hidden");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("isAdmin");
+      window.location.reload();
+    }
+
+    // Privacy Functions
+    function acceptPrivacy() {
+      localStorage.setItem('privacyConsent', 'true');
+      elements.privacyBanner.classList.add('hidden');
+    }
+
+    function declinePrivacy() {
+      localStorage.setItem('privacyConsent', 'false');
+      elements.privacyBanner.classList.add('hidden');
+    }
+
+    // Initialize App
+    function init() {
+      renderProducts();
+      updateCartUI();
+
+      const savedUsername = localStorage.getItem("username");
+      if (savedUsername) {
+        updateUserUI(savedUsername);
+      }
+
+      if (localStorage.getItem('privacyConsent') === null) {
+        elements.privacyBanner.classList.remove('hidden');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
